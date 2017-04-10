@@ -1,17 +1,21 @@
 'use strict';
+const fs = require('fs');
 
 module.exports = {
     up: function (queryInterface, Sequelize) {
-        return queryInterface.bulkInsert('Languages', [{
-            id: '24f3756b-f9ae-4ee2-9709-6e6439e2d3b1',
-            code: 'nl',
-            description: 'Dutch',
-            createdAt: "2017-04-10T14:14:56.748Z",
-            updatedAt: "2017-04-10T14:14:56.748Z"
-        }], {individualHooks: true});
+        let date = new Date('2017-01-01');
+        let languages = JSON.parse(fs.readFileSync('./seeders/data/languages.json'));
+
+        languages.forEach(l => {
+            l.createdAt = date;
+            l.updatedAt = date;
+        });
+
+        return queryInterface.bulkInsert('Languages', languages, {individualHooks: true});
 
     },
 
     down: function (queryInterface, Sequelize) {
+        return queryInterface.bulkDelete('Languages');
     }
 };
