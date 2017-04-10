@@ -2,7 +2,7 @@
 const uuid = require('uuid/v4');
 
 module.exports = function (sequelize, DataTypes) {
-    let User = sequelize.define('User', {
+    let User = sequelize.define('Users', {
         id: {
             type: DataTypes.UUID,
             primaryKey: true,

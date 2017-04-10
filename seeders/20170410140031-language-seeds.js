@@ -6,16 +6,15 @@ module.exports = {
         let date = new Date('2017-01-01');
         let languages = JSON.parse(fs.readFileSync('./seeders/data/languages.json'));
 
-        languages.forEach(l => {
-            l.createdAt = date;
-            l.updatedAt = date;
+        languages.forEach(language => {
+            language.createdAt = date;
+            language.updatedAt = date;
         });
 
-        return queryInterface.bulkInsert('Languages', languages, {individualHooks: true});
-
+        return queryInterface.bulkInsert('Language', languages, {individualHooks: true});
     },
 
     down: function (queryInterface, Sequelize) {
-        return queryInterface.bulkDelete('Languages');
+        return queryInterface.bulkDelete('Language');
     }
 };
