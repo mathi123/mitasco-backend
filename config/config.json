@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "mitasco_dev",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}

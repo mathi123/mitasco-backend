@@ -1,2 +1,2 @@
-# mitasco-backend
+# Mitasco
 Mitasco Server Application
