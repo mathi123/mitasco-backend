@@ -18,6 +18,7 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING
         },
     }, {
+        tableName: 'Language',
         classMethods: {
             associate: function (models) {
                 // associations can be defined here

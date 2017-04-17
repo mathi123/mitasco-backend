@@ -3,11 +3,8 @@
 const uuid = require('uuid/v4');
 const models = require('../../models');
 const wrapPromise = require('../helpers').wrapPromise;
+const HttpStatus = require('http-status-codes');
 
-const noContentCode = 204;
-const successCode = 200;
-const resourceCreatedCode = 201;
-const notFoundCode = 404;
 let routePrefix = "";
 
 function buildRoutes(app, prefix) {
@@ -39,7 +36,7 @@ async function getUserById(req, res) {
 
     if(user === null){
         console.log("user is null");
-        res.sendStatus(notFoundCode);
+        res.sendStatus(HttpStatus.NOT_FOUND);
     }else{
         console.log("user is not null");
         res.json(userExporter(user));
@@ -53,7 +50,7 @@ async function updateUser(req, res) {
     let user = await models.User.findOne({id:id});
 
     if(user === null){
-        res.sendStatus(notFoundCode);
+        res.sendStatus(HttpStatus.NOT_FOUND);
     }else{
         // update user
         let values = {
@@ -64,7 +61,7 @@ async function updateUser(req, res) {
         await models.User.update(values, {where: {id: id}, fields: ["fullName","email"]});
 
         res.location(`/${routePrefix}/user/${ id }`);
-        res.sendStatus(noContentCode);
+        res.sendStatus(HttpStatus.NO_CONTENT);
     }
 }
 
@@ -81,7 +78,7 @@ async function createUser(req, res) {
     await models.User.create(user);
 
     res.location(`/${routePrefix}/user/${ user.id }`);
-    res.sendStatus(resourceCreatedCode);
+    res.sendStatus(HttpStatus.CREATED);
 }
 
 async function deleteUser(req, res) {
@@ -90,7 +87,7 @@ async function deleteUser(req, res) {
 
     await models.User.destroy({id:id});
 
-    res.sendStatus(noContentCode);
+    res.sendStatus(HttpStatus.NO_CONTENT);
 }
 
 function userExporter(user) {

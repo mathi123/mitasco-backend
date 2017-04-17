@@ -1,8 +1,6 @@
 'use strict';
 
 const uuid = require('uuid/v4');
-const Role = require('./role');
-const Permission = require('./permission');
 
 module.exports = function (sequelize, DataTypes) {
     let RolePermission = sequelize.define('RolePermission', {
@@ -23,7 +21,31 @@ module.exports = function (sequelize, DataTypes) {
     }, {
         classMethods: {
             associate: function (models) {
-                // associations can be defined here
+                let Role = models['Role'];
+                let Permission = models['Permission'];
+                let RolePermission = models['RolePermission'];
+
+                Role.hasMany(RolePermission, {foreignKey: 'roleId'});
+
+                Permission.hasMany(RolePermission, {foreignKey: 'permissionId'});
+
+                RolePermission.belongsTo(Role,
+                    {
+                        foreignKey: {
+                            name: "roleId",
+                            allowNull: false,
+                            onDelete: "CASCADE"
+                        }
+                    });
+
+                RolePermission.belongsTo(Permission,
+                    {
+                        foreignKey: {
+                            name: "permissionId",
+                            allowNull: false,
+                            onDelete: "CASCADE"
+                        }
+                    });
             }
         }
     });
@@ -34,27 +56,6 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
-    Role.hasMany(RolePermission, {foreignKey: 'roleId'});
-
-    RolePermission.belongsTo(Role,
-        {
-            foreignKey: {
-                name: "roleId",
-                allowNull: false,
-                onDelete: "CASCADE"
-            }
-        });
-
-    Permission.hasMany(RolePermission, {foreignKey: 'permissionId'});
-
-    RolePermission.belongsTo(Permission,
-        {
-            foreignKey: {
-                name: "permissionId",
-                allowNull: false,
-                onDelete: "CASCADE"
-            }
-        });
 
     return RolePermission;
 };
