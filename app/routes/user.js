@@ -1,11 +1,10 @@
-"use strict";
-
 const uuid = require('uuid/v4');
 const models = require('../../models');
 const wrapPromise = require('../helpers').wrapPromise;
 const HttpStatus = require('http-status-codes');
+const bcrypt = require('bcrypt');
 
-let routePrefix = "";
+let routePrefix = '';
 
 function buildRoutes(app, prefix) {
     routePrefix = prefix;
@@ -22,43 +21,38 @@ function buildRoutes(app, prefix) {
 }
 
 async function getAllUsers(req, res) {
-    console.info("GET user");
-    let users = await models.User.all();
+    const users = await models.User.all();
 
     res.json(users.map(userExporter));
 }
 
 async function getUserById(req, res) {
-    console.info(`GET user/${ req.params.id }`);
-    let id = req.params.id;
+    const id = req.params.id;
 
-    let user = await models.User.findOne({ id: id});
+    const user = await models.User.findOne({id});
 
     if(user === null){
-        console.log("user is null");
         res.sendStatus(HttpStatus.NOT_FOUND);
     }else{
-        console.log("user is not null");
         res.json(userExporter(user));
     }
 }
 
 async function updateUser(req, res) {
-    console.info("PUT user");
-    let id = req.params.id;
-    let userData = req.body;
-    let user = await models.User.findOne({id:id});
+    const id = req.params.id;
+    const userData = req.body;
+    const user = await models.User.findOne({id});
 
     if(user === null){
         res.sendStatus(HttpStatus.NOT_FOUND);
     }else{
         // update user
-        let values = {
+        const values = {
             fullName : userData.fullName,
-            email: userData.email
+            email: userData.email,
         };
 
-        await models.User.update(values, {where: {id: id}, fields: ["fullName","email"]});
+        await models.User.update(values, {where: {id}, fields: ['fullName', 'email']});
 
         res.location(`/${routePrefix}/user/${ id }`);
         res.sendStatus(HttpStatus.NO_CONTENT);
@@ -66,13 +60,13 @@ async function updateUser(req, res) {
 }
 
 async function createUser(req, res) {
-    console.info("POST user");
-    let userData = req.body;
+    const userData = req.body;
 
-    let user = {
+    const user = {
         id: uuid(),
         fullName: userData.fullName,
-        email: userData.email
+        email: userData.email,
+        password: await bcrypt.hash(userData.password, 10),
     };
 
     await models.User.create(user);
@@ -82,17 +76,16 @@ async function createUser(req, res) {
 }
 
 async function deleteUser(req, res) {
-    console.info(`DELETE user/${ req.params.id }`);
-    let id = req.params.id;
+    const id = req.params.id;
 
-    await models.User.destroy({id:id});
+    await models.User.destroy({id});
 
     res.sendStatus(HttpStatus.NO_CONTENT);
 }
 
 function userExporter(user) {
     user._links = {
-        self: `/${routePrefix}/user/${ user.id }`
+        self: `/${routePrefix}/user/${ user.id }`,
     };
 
     return user;

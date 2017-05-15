@@ -1,28 +1,29 @@
-'use strict';
+
 const uuid = require('uuid/v4');
 
 module.exports = function (sequelize, DataTypes) {
-    let Role = sequelize.define('Role', {
+    const Role = sequelize.define('Role', {
         id: {
             type: DataTypes.UUID,
             primaryKey: true,
-            allowNull: false
+            allowNull: false,
         },
         code: {
             allowNull: false,
             unique: true,
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
         },
         description: {
             allowNull: false,
-            type: DataTypes.STRING
-        }
+            type: DataTypes.STRING,
+        },
     }, {
+        tableName: 'Role',
         classMethods: {
-            associate: function (models) {
+            associate (models) {
                 // associations can be defined here
-            }
-        }
+            },
+        },
     });
 
     Role.addHook('beforeCreate', async role => {

@@ -1,10 +1,10 @@
-'use strict';
+
 const fs = require('fs');
 
 module.exports = {
-    up: function (queryInterface, Sequelize) {
-        let date = new Date('2017-01-01');
-        let roles = JSON.parse(fs.readFileSync('./seeders/data/roles.json'));
+    up (queryInterface, Sequelize) {
+        const date = new Date('2017-01-01');
+        const roles = JSON.parse(fs.readFileSync('./seeders/data/roles.json'));
 
         roles.forEach(role => {
             role.createdAt = date;
@@ -14,7 +14,7 @@ module.exports = {
         return queryInterface.bulkInsert('Role', roles, {individualHooks: true});
     },
 
-    down: function (queryInterface, Sequelize) {
+    down (queryInterface, Sequelize) {
         return queryInterface.bulkDelete('Role');
-    }
+    },
 };

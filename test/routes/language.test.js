@@ -1,19 +1,19 @@
-"use strict";
-
-const request = require("supertest");
-const should = require("should");
-const server = require("../../app/server");
+const request = require('supertest');
+const should = require('should');
+const server = require('../../app/server');
 const uuid = require('uuid/v4');
 const HttpStatusCode = require('http-status-codes');
 const models = require('../../models');
 
-let app = server.create();
+const app = server.create();
+const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MWY2YjdhMi0xMzA2LTRjNDEtODZkYS03Y2EyOGNlMjhlZDIiLCJpYXQiOjE0OTI0NDY5NzF9.FzYRLb9Fir3Yl8QdA4BMRMgskHTYul0DlxwSQ1ktwMg';
 
 describe('GET /language', () => {
     it('should return an array of languages', (done) => {
         request(app)
             .get('/api/language')
             .set('Accept', 'application/json')
+            .set('authorization', token)
             .expect(HttpStatusCode.OK, (err, res) => {
                 if (err) return done(err);
 
@@ -25,16 +25,17 @@ describe('GET /language', () => {
 });
 
 describe('POST /language', () => {
-    let language = {
-        link: "",
-        code: "unit",
-        description: "unit test language"
+    const language = {
+        link: '',
+        code: 'unit',
+        description: 'unit test language',
     };
 
     it('should return a location header', (done) => {
         request(app)
             .post('/api/language')
             .set('Accept', 'application/json')
+            .set('authorization', token)
             .send(language)
             .expect(HttpStatusCode.CREATED, (err, res) => {
                 if (err) return done(err);
@@ -52,6 +53,7 @@ describe('POST /language', () => {
     it('returns a link that allows to delete resource', (done) => {
         request(app)
             .delete(language.link)
+            .set('authorization', token)
             .expect(HttpStatusCode.NO_CONTENT, (err, res) => {
                 if (err) return done(err);
 
@@ -66,15 +68,16 @@ describe('POST /language', () => {
 
 describe('PUT /language', () => {
     it('should update the language description', async () => {
-        let record = await models.Language.findOne({});
+        const record = await models.Language.findOne({});
 
-        let language = {
-            description: "changed description"
+        const language = {
+            description: 'changed description',
         };
 
         request(app)
             .put(`/api/language/${record.id}`)
             .set('Accept', 'application/json')
+            .set('authorization', token)
             .send(language)
             .expect(HttpStatusCode.NO_CONTENT, (err, res) => {
                 if (err) throw new Error();
@@ -84,5 +87,5 @@ describe('PUT /language', () => {
                         data.description.should.equal(language.description);
                     });
             });
-    })
+    });
 });

@@ -1,11 +1,9 @@
-"use strict";
-
-const request = require("supertest");
-const should = require("should");
-const server = require("../../app/server");
+const request = require('supertest');
+const should = require('should');
+const server = require('../../app/server');
 const uuid = require('uuid/v4');
-
-let app = server.create();
+const HttpStatus = require('http-status-codes');
+const app = server.create(3001);
 
 describe('GET /user', () => {
     it('should have a valid status code', (done) => {
@@ -29,14 +27,16 @@ describe('GET /user', () => {
 });
 describe('POST /user', () => {
     it('should have a valid status code', (done) => {
-        let testUser = {
-            fullName: "test user",
-            email: `test@${uuid()}.com`
+        const testUser = {
+            fullName: 'test user',
+            email: `test@${uuid()}.com`,
+            password: 'test',
         };
 
-        /*request(app)
-         .post()
-         .set('Accept', 'application/json')
-         .expect(200, done);*/
+        request(app)
+            .post('/api/user')
+            .set('Accept', 'application/json')
+            .send(testUser)
+            .expect(HttpStatus.CREATED, done);
     });
 });

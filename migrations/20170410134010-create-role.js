@@ -1,31 +1,31 @@
-'use strict';
+
 module.exports = {
-    up: function (queryInterface, Sequelize) {
+    up (queryInterface, Sequelize) {
         return queryInterface.createTable('Role', {
             id: {
                 allowNull: false,
                 primaryKey: true,
-                type: Sequelize.UUID
+                type: Sequelize.UUID,
             },
             code: {
                 type: Sequelize.STRING,
-                allowNull: false
+                allowNull: false,
             },
             description: {
                 type: Sequelize.STRING,
-                allowNull: false
+                allowNull: false,
             },
             createdAt: {
                 allowNull: false,
-                type: Sequelize.DATE
+                type: Sequelize.DATE,
             },
             updatedAt: {
                 allowNull: false,
-                type: Sequelize.DATE
-            }
+                type: Sequelize.DATE,
+            },
         });
     },
-    down: function (queryInterface, Sequelize) {
+    down (queryInterface, Sequelize) {
         return queryInterface.dropTable('Role');
-    }
+    },
 };

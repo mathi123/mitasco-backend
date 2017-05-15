@@ -1,29 +1,29 @@
-'use strict';
+
 const uuid = require('uuid/v4');
 
 module.exports = function (sequelize, DataTypes) {
-    let Language = sequelize.define('Language', {
+    const Language = sequelize.define('Language', {
         id: {
             type: DataTypes.UUID,
             primaryKey: true,
-            allowNull: false
+            allowNull: false,
         },
         code: {
             allowNull: false,
             unique: true,
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
         },
         description: {
             allowNull: false,
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
         },
     }, {
         tableName: 'Language',
         classMethods: {
-            associate: function (models) {
+            associate (models) {
                 // associations can be defined here
-            }
-        }
+            },
+        },
     });
 
     Language.addHook('beforeCreate', async language => {

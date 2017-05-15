@@ -1,43 +1,43 @@
-'use strict';
+
 module.exports = {
-    up: function (queryInterface, Sequelize) {
+    up (queryInterface, Sequelize) {
         return queryInterface.createTable('RolePermission', {
             id: {
                 allowNull: false,
                 primaryKey: true,
-                type: Sequelize.UUID
+                type: Sequelize.UUID,
             },
             roleId: {
                 allowNull: false,
                 type: Sequelize.UUID,
                 references: {
                     model: 'Role',
-                    key: 'id'
+                    key: 'id',
                 },
                 onDelete: 'CASCADE',
-                onUpdate: 'CASCADE'
+                onUpdate: 'CASCADE',
             },
             permissionId: {
                 allowNull: false,
                 type: Sequelize.UUID,
                 references: {
                     model: 'Permission',
-                    key: 'id'
+                    key: 'id',
                 },
                 onDelete: 'CASCADE',
-                onUpdate: 'CASCADE'
+                onUpdate: 'CASCADE',
             },
             createdAt: {
                 allowNull: false,
-                type: Sequelize.DATE
+                type: Sequelize.DATE,
             },
             updatedAt: {
                 allowNull: false,
-                type: Sequelize.DATE
-            }
+                type: Sequelize.DATE,
+            },
         });
     },
-    down: function (queryInterface, Sequelize) {
+    down (queryInterface, Sequelize) {
         return queryInterface.dropTable('RolePermission');
-    }
+    },
 };

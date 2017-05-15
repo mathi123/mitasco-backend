@@ -1,4 +1,4 @@
-"use strict";
+
 
 const uuid = require('uuid/v4');
 const models = require('../../models');
@@ -13,19 +13,19 @@ function buildRoutes(app, prefix) {
     app.get(`/${prefix}/language/:id`, wrapPromise(getLanguageById));
     app.put(`/${prefix}/language`, wrapPromise(updateLanguage));
     app.post(`/${prefix}/language`, wrapPromise(createLanguage));
-    app.delete(`/${prefix}/language/:id`, wrapPromise(deleteLanguage))
+    app.delete(`/${prefix}/language/:id`, wrapPromise(deleteLanguage));
 }
 
 async function getAllLanguages(req, res) {
-    let languages = await models.Language.all();
+    const languages = await models.Language.all();
 
     res.json(languages.map(mapLanguage));
 }
 
 async function getLanguageById(req, res) {
-    let id = req.params.id;
+    const id = req.params.id;
 
-    let language = await models.Language.findOne({where: {id: id}});
+    const language = await models.Language.findOne({where: {id}});
 
     if (language === null) {
         res.sendStatus(HttpStatus.NOT_FOUND);
@@ -43,10 +43,10 @@ async function createLanguage(req, res) {
         throw new Error('description missing');
     }
 
-    let data = {
+    const data = {
         id: uuid(),
         code: req.body.code,
-        description: req.body.description
+        description: req.body.description,
     };
 
     await models.Language.create(data);
@@ -64,21 +64,21 @@ async function updateLanguage(req, res) {
         throw new Error('id missing');
     }
 
-    let id = req.params.id;
+    const id = req.params.id;
 
-    let language = await models.Language.findOne({where: {id: id}});
+    const language = await models.Language.findOne({where: {id}});
 
     if (language === null) {
         res.sendStatus(HttpStatus.NOT_FOUND);
     } else {
-        let data = {
-            description: req.body.description
+        const data = {
+            description: req.body.description,
         };
 
         await models.Language.update(data, {
             where: {
-                id: id
-            }, fields: ["description"]
+                id,
+            }, fields: ['description'],
         });
 
         res.location(`/${routePrefix}/language/${id}`);
@@ -88,24 +88,24 @@ async function updateLanguage(req, res) {
 
 
 async function deleteLanguage(req, res) {
-    let id = req.params.id;
+    const id = req.params.id;
 
-    let language = models.Language.findOne({where: {id: id}});
+    const language = models.Language.findOne({where: {id}});
 
     if (language !== null) {
-        await models.Language.destroy({where: {id: id}});
+        await models.Language.destroy({where: {id}});
     }
 
     res.sendStatus(HttpStatus.NO_CONTENT);
 }
 
 function mapLanguage(language) {
-    let result = {};
+    const result = {};
     result.id = language.id;
     result.code = language.code;
     result.description = language.description;
     result._links = {
-        self: `/${routePrefix}/language/${ result.id }`
+        self: `/${routePrefix}/language/${ result.id }`,
     };
 
     return result;

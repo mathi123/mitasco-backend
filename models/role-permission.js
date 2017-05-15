@@ -1,29 +1,30 @@
-'use strict';
+
 
 const uuid = require('uuid/v4');
 
 module.exports = function (sequelize, DataTypes) {
-    let RolePermission = sequelize.define('RolePermission', {
+    const RolePermission = sequelize.define('RolePermission', {
         id: {
             type: DataTypes.UUID,
             primaryKey: true,
             allowNull: false,
-            unique: true
+            unique: true,
         },
         roleId: {
             type: DataTypes.UUID,
-            allowNull: false
+            allowNull: false,
         },
         permissionId: {
             type: DataTypes.UUID,
-            allowNull: false
+            allowNull: false,
         },
     }, {
+        tableName: 'RolePermission',
         classMethods: {
-            associate: function (models) {
-                let Role = models['Role'];
-                let Permission = models['Permission'];
-                let RolePermission = models['RolePermission'];
+            associate (models) {
+                const Role = models['Role'];
+                const Permission = models['Permission'];
+                const RolePermission = models['RolePermission'];
 
                 Role.hasMany(RolePermission, {foreignKey: 'roleId'});
 
@@ -32,22 +33,22 @@ module.exports = function (sequelize, DataTypes) {
                 RolePermission.belongsTo(Role,
                     {
                         foreignKey: {
-                            name: "roleId",
+                            name: 'roleId',
                             allowNull: false,
-                            onDelete: "CASCADE"
-                        }
+                            onDelete: 'CASCADE',
+                        },
                     });
 
                 RolePermission.belongsTo(Permission,
                     {
                         foreignKey: {
-                            name: "permissionId",
+                            name: 'permissionId',
                             allowNull: false,
-                            onDelete: "CASCADE"
-                        }
+                            onDelete: 'CASCADE',
+                        },
                     });
-            }
-        }
+            },
+        },
     });
 
     RolePermission.addHook('beforeCreate', async (rolePermission) => {

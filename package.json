@@ -8,9 +8,12 @@
   },
   "author": "Mathias Colpaert <colpaert.mathias@gmail.com>",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
     "express": "^4.15.2",
     "http-status-codes": "^1.1.6",
+    "jsonwebtoken": "^7.3.0",
     "pg": "^6.1.5",
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.30.4",
@@ -22,5 +25,76 @@
     "sequelize-cli": "^2.7.0",
     "should": "^11.2.1",
     "supertest": "^3.0.0"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "node": true,
+      "browser": true,
+      "es6": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2017,
+      "sourceType": "module"
+    },
+    "rules": {
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ],
+      "comma-spacing": [
+        "error",
+        {
+          "before": false,
+          "after": true
+        }
+      ],
+      "eol-last": [
+        "error",
+        "always"
+      ],
+      "indent": [
+        "error",
+        4,
+        {
+          "MemberExpression": 1
+        }
+      ],
+      "no-multiple-empty-lines": [
+        "error"
+      ],
+      "no-new-symbol": "error",
+      "no-trailing-spaces": [
+        "error"
+      ],
+      "no-undef": [
+        "error"
+      ],
+      "no-unused-vars": [
+        "error"
+      ],
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "object-shorthand": "error",
+      "prefer-const": 2,
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "semi": [
+        "error",
+        "always"
+      ],
+      "space-in-parens": [
+        "error",
+        "never"
+      ],
+      "strict": [
+        2,
+        "never"
+      ]
+    }
   }
 }

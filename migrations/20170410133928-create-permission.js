@@ -1,35 +1,35 @@
-'use strict';
+
 module.exports = {
-    up: function (queryInterface, Sequelize) {
+    up (queryInterface, Sequelize) {
         return queryInterface.createTable('Permission', {
             id: {
                 allowNull: false,
                 primaryKey: true,
-                type: Sequelize.UUID
+                type: Sequelize.UUID,
             },
             code: {
                 allowNull: false,
-                type: Sequelize.STRING
+                type: Sequelize.STRING,
             },
             description: {
                 allowNull: false,
-                type: Sequelize.STRING
+                type: Sequelize.STRING,
             },
             isRemovable: {
                 allowNull: false,
-                type: Sequelize.BOOLEAN
+                type: Sequelize.BOOLEAN,
             },
             createdAt: {
                 allowNull: false,
-                type: Sequelize.DATE
+                type: Sequelize.DATE,
             },
             updatedAt: {
                 allowNull: false,
-                type: Sequelize.DATE
-            }
+                type: Sequelize.DATE,
+            },
         });
     },
-    down: function (queryInterface, Sequelize) {
+    down (queryInterface, Sequelize) {
         return queryInterface.dropTable('Permission');
-    }
+    },
 };

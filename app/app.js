@@ -1,5 +1,3 @@
-"use strict";
+const server = require('./server');
 
-let server = require('./server');
-
-server.create();
+server.start();
