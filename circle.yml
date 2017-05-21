@@ -1,4 +1,8 @@
 machine:
+  environment:
+    NODE_ENV: development
+    COVERALLS_SERVICE_NAME: circle-ci
+    COVERALLS_REPO_TOKEN: zpcf2y6cnPSfsLnD6EF5Buur0LY5fGliG
   node:
     version: v7.7.3
   npm:
@@ -6,6 +10,10 @@ machine:
 test:
   pre:
     - npm rebuild bcrypt --build-from-source
+  override:
+    - npm run coverage
+  post:
+    - npm run coveralls
 general:
   artifacts:
     - ./coverage
