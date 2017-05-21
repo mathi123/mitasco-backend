@@ -1,0 +1,8 @@
+machine:
+  node:
+    version: v7.7.3
+  npm:
+    version: 4.1.2
+test:
+  override:
+    - ./node_modules/mocha/bin/mocha ./test/**/*.specs.js ./test/*.specs.js
