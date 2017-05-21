@@ -10,8 +10,10 @@ machine:
 test:
   pre:
     - npm rebuild bcrypt --build-from-source
+  override:
+    - npm run coverage
   post:
-    - ./node_modules/coveralls/bin/coveralls.js
+    - npm run coveralls
 general:
   artifacts:
     - ./coverage
