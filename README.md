@@ -1,5 +1,7 @@
 [![CircleCI](https://circleci.com/gh/mathi123/mitasco-backend.svg?style=shield&circle-token=a94a1da956055129c99ee2c0989b35cf035f6fc5)](https://circleci.com/gh/mathi123/mitasco-backend)
 [![Coverage Status](https://coveralls.io/repos/github/mathi123/mitasco-backend/badge.svg?branch=master&t=frUYdw)](https://coveralls.io/github/mathi123/mitasco-backend?branch=master)
+[![Docker Build Status](https://img.shields.io/docker/build/jrottenberg/ffmpeg.svg)](https://cloud.docker.com/app/colpaert/repository/docker/colpaert/mitasco-backend)
+
 # Mitasco
 Mitasco Server Application
 
