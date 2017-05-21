@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/mathi123/mitasco-backend.svg?style=svg)](https://circleci.com/gh/mathi123/mitasco-backend)
+
 # Mitasco
 Mitasco Server Application
 

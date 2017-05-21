@@ -4,7 +4,7 @@
   "description": "Mitasco Server Application",
   "scripts": {
     "start": "./node_modules/nodemon/bin/nodemon.js ./app/app.js --harmony-async-await",
-    "test": "./node_modules/nyc/bin/nyc.js --reporter=lcov ./node_modules/mocha/bin/mocha ./test/**/*.specs.js ./test/*.specs.js"
+    "test": "./node_modules/mocha/bin/mocha ./test/**/*.specs.js ./test/*.specs.js"
   },
   "author": "Mathias Colpaert <colpaert.mathias@gmail.com>",
   "dependencies": {
