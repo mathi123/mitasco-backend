@@ -5,7 +5,7 @@ machine:
     version: 4.1.2
 test:
   pre:
-    - npm rebuild
+    - npm rebuild bcrypt --build-from-source
 general:
   artifacts:
     - ./coverage
