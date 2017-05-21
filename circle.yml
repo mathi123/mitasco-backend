@@ -1,4 +1,6 @@
 machine:
+  environment:
+    NODE_ENV: development
   node:
     version: v7.7.3
   npm:
