@@ -1,12 +1,16 @@
+const rewire = require('rewire');
 const request = require('supertest');
 const should = require('should');
 const server = require('../../app/server');
 const uuid = require('uuid/v4');
 const HttpStatusCode = require('http-status-codes');
 const models = require('../../models');
+const auth = require('.././authentication-controller');
+const helpers = require('../helpers');
 
-const app = server.create();
-const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MWY2YjdhMi0xMzA2LTRjNDEtODZkYS03Y2EyOGNlMjhlZDIiLCJpYXQiOjE0OTI0NDY5NzF9.FzYRLb9Fir3Yl8QdA4BMRMgskHTYul0DlxwSQ1ktwMg';
+const app = server.start();
+const userId = helpers.getTestUserId();
+const token = auth.getBearerHeader(userId);
 
 describe('GET /language', () => {
     it('should return an array of languages', (done) => {

@@ -3,7 +3,7 @@ const should = require('should');
 const server = require('../../app/server');
 const uuid = require('uuid/v4');
 const HttpStatus = require('http-status-codes');
-const app = server.create(3001);
+const app = server.start(3001);
 
 describe('GET /user', () => {
     it('should have a valid status code', (done) => {
