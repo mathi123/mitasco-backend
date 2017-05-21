@@ -8,10 +8,6 @@ WORKDIR /usr/app
 
 RUN npm install
 
-RUN ./setup-postgresql.sh
-
-RUN ./node_modules/sequelize-cli/bin/sequelize db:migrate
-
 EXPOSE 3000
 
 CMD [ "npm" , "start" ]

@@ -20,8 +20,8 @@ Install
     
     cd mitasco-backend
     npm i
-    ./setup-postgresql.sh
-    ./node_modules/sequelize-cli/bin/sequelize db:migrate
+    npm run init-database
+    npm run migrate-database
 
 Test
 
@@ -30,3 +30,13 @@ Test
 Run
 
     npm start
+  
+## Other scripts
+
+Develop with live reload on file changes
+
+    npm run watch
+
+TDD: develop with re-execution of tests on file changes
+
+    npm run watch-test

@@ -8,7 +8,9 @@
     "test": "./node_modules/mocha/bin/mocha ./test/**/*.specs.js ./test/*.specs.js",
     "coverage": "./node_modules/nyc/bin/nyc.js --reporter=lcov npm test",
     "watch-test": "./node_modules/nodemon/bin/nodemon.js ./node_modules/mocha/bin/mocha ./test/**/*.specs.js ./test/*.specs.js",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "init-database": "./setup-postgresql.sh",
+    "migrate-database": "./node_modules/sequelize-cli/bin/sequelize db:migrate"
   },
   "author": "Mathias Colpaert <colpaert.mathias@gmail.com>",
   "dependencies": {
