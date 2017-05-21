@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/mathi123/mitasco-backend.svg?style=svg)](https://circleci.com/gh/mathi123/mitasco-backend)
+[![CircleCI](https://circleci.com/gh/mathi123/mitasco-backend.svg?style=svg&circle-token=a94a1da956055129c99ee2c0989b35cf035f6fc5)](https://circleci.com/gh/mathi123/mitasco-backend)
 
 # Mitasco
 Mitasco Server Application
