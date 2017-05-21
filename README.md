@@ -1,6 +1,5 @@
 [![CircleCI](https://circleci.com/gh/mathi123/mitasco-backend.svg?style=shield&circle-token=a94a1da956055129c99ee2c0989b35cf035f6fc5)](https://circleci.com/gh/mathi123/mitasco-backend)
-[![Coverage Status](https://coveralls.io/repos/github/mathi123/mitasco-backend/badge.svg?t=frUYdw)](https://coveralls.io/github/mathi123/mitasco-backend)
-
+[![Coverage Status](https://coveralls.io/repos/github/mathi123/mitasco-backend/badge.svg?branch=master&t=frUYdw)](https://coveralls.io/github/mathi123/mitasco-backend?branch=master)
 # Mitasco
 Mitasco Server Application
 
