@@ -1,6 +1,6 @@
-const ContextController = require('../../app/controllers/context-controller');
+const ContextController = require('../../controllers/context-controller');
 const expect = require('chai').expect;
-const models = require('../../models');
+const models = require('../../models/index');
 const sinon = require('sinon');
 
 describe('context controller', () => {

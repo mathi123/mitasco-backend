@@ -1,0 +1,6 @@
+module:
+  name: sales
+  description: 'sales and CRM module'
+  dependencies:
+    - core
+    - sales

@@ -4,9 +4,8 @@ const should = require('should');
 const server = require('../../app/server');
 const uuid = require('uuid/v4');
 const HttpStatusCode = require('http-status-codes');
-const models = require('../../models');
-const auth = require('.././authentication-controller');
-const helpers = require('../helpers');
+const models = require('../../models/index');
+const auth = require('../../authentication-controller');
 
 const app = server.start();
 const userId = helpers.getTestUserId();

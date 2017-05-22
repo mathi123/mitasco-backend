@@ -1,9 +1,10 @@
 const bcrypt = require('bcrypt');
-const AuthenticationController = require('../../app/controllers/authentication-controller');
+const AuthenticationController = require('../../controllers/authentication-controller');
 const sinon = require('sinon');
 const should = require('should')();
 const expect = require('chai').expect;
-const models = require('../../models');
+const models = require('../../models/index');
+const OrmInitializer = require('../../../../framework/orm-initializer');
 
 describe('authentication controller', () => {
     let authController;
@@ -15,6 +16,7 @@ describe('authentication controller', () => {
     };
 
     beforeEach('stub User models and bcrypt', function () {
+        new OrmInitializer({}).loadModule('core');
         authController = new AuthenticationController();
         userFindOneStub = sinon.stub(models.User, 'findOne');
         models.User.findOne = userFindOneStub;

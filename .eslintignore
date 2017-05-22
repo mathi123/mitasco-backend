@@ -1,3 +1,6 @@
 node_nodules
-test
-coverage
+/coverage
+/app/framework/tests
+/app/modules/core/tests
+/app/modules/sales/tests
+/app/modules/calculation/tests

@@ -1,9 +1,9 @@
 const initializeExpressApplication = require('express');
 const bodyParser = require('body-parser');
-const UserController = require('./controllers/user-controller');
-const LanguageController = require('./controllers/language-controller');
-const AuthenticationController = require('./controllers/authentication-controller');
-const ContextController = require('./controllers/context-controller');
+const UserController = require('./../modules/core/controllers/user-controller');
+const LanguageController = require('./../modules/core/controllers/language-controller');
+const AuthenticationController = require('./../modules/core/controllers/authentication-controller');
+const ContextController = require('./../modules/core/controllers/context-controller');
 
 const HttpStatus = require('http-status-codes');
 const cors = require('cors');

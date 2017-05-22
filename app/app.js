@@ -1,4 +1,4 @@
-const Server = require('./server');
+const Bootstrapper = require('./framework/bootstrapper');
 
-const server = new Server({});
-server.start();
+const bootstrapper = new Bootstrapper();
+bootstrapper.run();

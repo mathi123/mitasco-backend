@@ -1,4 +1,4 @@
-const models = require('../../models');
+const models = require('../models');
 const secretKey = 'KJ2kjJK32LKJA\'/.SD[]';
 const HttpStatus = require('http-status-codes');
 const bcrypt = require('bcrypt');

@@ -1,8 +1,8 @@
 const request = require('supertest');
-const ContextController = require('../../app/controllers/context-controller');
-const AuthenticationController = require('../../app/controllers/authentication-controller');
+const ContextController = require('../../controllers/context-controller');
+const AuthenticationController = require('../../controllers/authentication-controller');
 const expect = require('chai').expect;
-const Server = require('../../app/server');
+const Server = require('../../../../framework/server');
 const sinon = require('sinon');
 
 describe('GET /api/context', () => {

@@ -1,4 +1,3 @@
-
 const uuid = require('uuid/v4');
 
 module.exports = function (sequelize, DataTypes) {
@@ -19,11 +18,6 @@ module.exports = function (sequelize, DataTypes) {
         },
     }, {
         tableName: 'Language',
-        classMethods: {
-            associate (models) {
-                // associations can be defined here
-            },
-        },
     });
 
     Language.addHook('beforeCreate', async language => {

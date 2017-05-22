@@ -1,4 +1,4 @@
-const RoleModel = require('../../models').Role;
+const RoleModel = require('../models').Role;
 const HttpStatus = require('http-status-codes');
 
 class RoleController {

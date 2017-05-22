@@ -1,7 +1,7 @@
 const request = require('supertest');
-const AuthenticationController = require('../../app/controllers/authentication-controller');
+const AuthenticationController = require('../../controllers/authentication-controller');
 const expect = require('chai').expect;
-const Server = require('../../app/server');
+const Server = require('../../../../framework/server');
 const sinon = require('sinon');
 
 describe('POST /api/token', () => {
