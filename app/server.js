@@ -43,7 +43,7 @@ class Server{
     buildRoutes(){
         // AuthenticationController must be added first!
         new AuthenticationController(this.routePrefix).buildRoutes(this.app);
-        //new ContextController(this.routePrefix).buildRoutes(this.app);
+        new ContextController(this.routePrefix).buildRoutes(this.app);
         //new LanguageController(this.routePrefix).buildRoutes(this.app);
         //new UserController(this.routePrefix).buildRoutes(this.app);
 

@@ -1,3 +1,4 @@
+
 const models = require('../../models');
 
 class ContextController{
@@ -7,7 +8,7 @@ class ContextController{
 
     buildRoutes(app) {
         app.get(`/${this.routePrefix}/context/role`, (req, res, next) => this.getRoles(req, res).catch(next));
-        app.get(`/${this.routePrefix}/context/permission`, (req, res, next) => this.getPermissions.catch(next));
+        app.get(`/${this.routePrefix}/context/permission`, (req, res, next) => this.getPermissions(req, res).catch(next));
     }
 
     async getRoles(req, res) {
