@@ -21,9 +21,12 @@ describe('context controller', () => {
 
         beforeEach(() => {
             // Arrange
-            findAllRolesStub = sinon.stub(models.Role,'findAll');
+            findAllRolesStub = sinon.stub();
+            models.Role = {
+                findAll: findAllRolesStub
+            };
+
             findAllRolesStub.returns([{ id: '', code: 'test', description: 'test' }]);
-            models.Role.findAll = findAllRolesStub;
         });
 
         it('should query the database for roles', async () => {
@@ -41,10 +44,6 @@ describe('context controller', () => {
            expect(res.json.calledOnce).to.be.true;
            expect(res.json.firstCall.args[0]).to.be.an.array;
        });
-
-       afterEach(() => {
-           findAllRolesStub.restore();
-       })
    });
 
    describe('getPermissions', () => {
@@ -52,13 +51,18 @@ describe('context controller', () => {
 
        beforeEach(() => {
            // Arrange
-           roleFindAllStub = sinon.stub(models.Role,'findAll');
+           roleFindAllStub = sinon.stub();
+           models.Role = {
+               findAll: roleFindAllStub
+           };
            roleFindAllStub.returns([{ id: 123 }, { id: 345}]);
-           models.Role.findAll = roleFindAllStub;
 
-           permissionFindAllStub = sinon.stub(models.Permission, 'findAll');
+           permissionFindAllStub = sinon.stub();
+           models.Permission = {
+               findAll: permissionFindAllStub
+           };
+
            permissionFindAllStub.returns([{ id: '2', code: 'test', description: 'test' }]);
-           models.Permission.findAll = permissionFindAllStub;
        });
 
        it('should query for the users roles, and the permissions of that role after', async () => {
@@ -77,11 +81,6 @@ describe('context controller', () => {
            // Assert
            expect(res.json.calledOnce).to.be.true;
            expect(res.json.firstCall.args[0]).to.be.an.array;
-       });
-
-       afterEach(() => {
-           roleFindAllStub.restore();
-           permissionFindAllStub.restore();
        });
    });
 });

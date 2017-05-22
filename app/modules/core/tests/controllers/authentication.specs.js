@@ -16,10 +16,11 @@ describe('authentication controller', () => {
     };
 
     beforeEach('stub User models and bcrypt', function () {
-        new OrmInitializer({}).loadModule('core');
         authController = new AuthenticationController();
-        userFindOneStub = sinon.stub(models.User, 'findOne');
-        models.User.findOne = userFindOneStub;
+        userFindOneStub = sinon.stub();
+        models.User = {
+            findOne: userFindOneStub
+        };
 
         bcryptCompareStub = sinon.stub(bcrypt, 'compare');
         bcrypt.compare = bcryptCompareStub;
@@ -215,7 +216,6 @@ describe('authentication controller', () => {
     });
 
     afterEach('restore stubs', function () {
-        userFindOneStub.restore();
         bcryptCompareStub.restore();
     });
 });
