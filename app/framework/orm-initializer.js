@@ -10,9 +10,9 @@ class OrmInitializer{
     }
 
     startSequelize(){
-        const database = this.configuration.database;
-        const username = this.configuration.username;
-        const password = this.configuration.password;
+        const database = process.env.POSTGRES_DB || this.configuration.database;
+        const username = process.env.POSTGRES_USER || this.configuration.username;
+        const password = process.env.POSTGRES_PASSWORD || this.configuration.password;
         const config = this.configuration;
 
         this.sequelize = new Sequelize(database, username, password, config);

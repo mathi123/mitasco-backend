@@ -1,6 +1,0 @@
-version: "3.0"
-services:
-  database:
-    image: postgres
-  backend:
-    image: colpaert/mitasco-backend
