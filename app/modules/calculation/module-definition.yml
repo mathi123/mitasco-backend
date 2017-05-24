@@ -1,5 +1,0 @@
-module:
-  name: calculation
-  description: 'calculatie module'
-  dependencies:
-    - core

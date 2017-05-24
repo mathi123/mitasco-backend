@@ -18,7 +18,7 @@ describe('Bootstrapper', () => {
         bootstrapper = new Bootstrapper();
 
         configurationLoadStub = sinon.stub(ConfigurationLoader.prototype, 'load');
-        configurationLoadStub.returns({ configKey: 'test', orm: ormConfig, modules: [ 'core' ] });
+        configurationLoadStub.returns({ configKey: 'test', orm: ormConfig , modules: [ 'core' ] });
     });
 
     it('loads the configuration file', () => {
@@ -51,9 +51,9 @@ describe('Bootstrapper', () => {
         expect(ormInitStub.firstCall.args[0]).to.equal(ormConfig);
     });
 
-    it('starts a server instance', () => {
+    it('builds a server instance', () => {
         // Arrange
-        const serverStartStub = sinon.stub(Server.prototype, 'start');
+        const serverStartStub = sinon.stub(Server.prototype, 'build');
         stubs.push(serverStartStub);
         stubs.push(sinon.stub(OrmInitializer.prototype, 'initialize'));
         stubs.push(sinon.stub(OrmInitializer.prototype, 'loadModule'));

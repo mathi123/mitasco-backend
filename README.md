@@ -7,23 +7,22 @@ Mitasco Server Application
 
 ## Prerequisites
 
-- Postgresql database: https://postgresapp.com/
-- Node: v7.7.3 or above
-- Npm: v4.1.2 or above
+- Docker
+- Node v7.7.3 or above
+- Npm v4.1.2 or above
 
 ## Quickstart
 
-Download the code
 
-    git clone https://github.com/mathi123/mitasco-backend.git
-
-
-Install
+Get code
     
+    git clone https://github.com/mathi123/mitasco-backend.git
     cd mitasco-backend
     npm i
-    npm run init-database
-    npm run migrate-database
+
+Run database
+
+    docker run --env-file=./postgres-environment.txt -d -p 5432:5432 --name mitasco-database postgres:9.4
 
 Test
 
@@ -32,7 +31,7 @@ Test
 Run
 
     npm start
-  
+
 ## Other scripts
 
 Develop with live reload on file changes
@@ -42,3 +41,8 @@ Develop with live reload on file changes
 TDD: develop with re-execution of tests on file changes
 
     npm run watch-test
+
+Database
+
+    docker stop mitasco-database
+    docker start mitasco-database

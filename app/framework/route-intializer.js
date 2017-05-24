@@ -17,7 +17,7 @@ class RouteInitializer{
     }
 
     fileFilter(basename, file) {
-        return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+        return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-15) === '-controller.js');
     }
 
     buildRoutes(moduleName, controllersDirPath, file) {

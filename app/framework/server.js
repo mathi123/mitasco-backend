@@ -1,7 +1,5 @@
 const initializeExpressApplication = require('express');
 const bodyParser = require('body-parser');
-const UserController = require('./../modules/core/controllers/user-controller');
-const LanguageController = require('./../modules/core/controllers/language-controller');
 const AuthenticationController = require('./../modules/core/controllers/authentication-controller');
 const ContextController = require('./../modules/core/controllers/context-controller');
 

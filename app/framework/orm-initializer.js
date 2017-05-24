@@ -19,6 +19,7 @@ class OrmInitializer{
     }
 
     loadModule(moduleName) {
+        this.initializeModuleModels(moduleName);
         this.createModels(moduleName);
         this.createModelAssociations(moduleName);
         this.updateModule(moduleName);
@@ -34,7 +35,7 @@ class OrmInitializer{
     }
 
     fileFilter(basename, file) {
-        return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+        return (file !== 'index.js') && (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
     }
 
     importSequelizeModel(moduleName, basename, file){
@@ -59,6 +60,15 @@ class OrmInitializer{
         Object.keys(this.sequelize.models[moduleName]).forEach((modelName, model) => {
             jsModule[modelName] = model;
         });
+    }
+
+    initializeModuleModels(moduleName) {
+        if(this.sequelize.models === undefined){
+            this.sequelize.models = {};
+        }
+        if(this.sequelize.models[moduleName] === undefined){
+            this.sequelize.models[moduleName] = {};
+        }
     }
 }
 
