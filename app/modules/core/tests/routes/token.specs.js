@@ -13,7 +13,7 @@ describe('POST /api/token', () => {
     let app, server, authenticateSpy;
 
     beforeEach('setup app', async () => {
-        server = await new Bootstrapper().run();
+        server = await new Bootstrapper({ runMigrationsOnStartUp: false }).run();
         server.start();
         app = server.getApp();
     });

@@ -11,8 +11,8 @@ class Bootstrapper{
         this.ormInitializer = new OrmInitializer();
     }
 
-    async run(){
-        this.loadConfigurationFile();
+    async run(configurationOverrides){
+        this.loadConfigurationFile(configurationOverrides);
         this.initializeOrm();
         await this.runMigrations();
         this.loadModules();
@@ -22,11 +22,11 @@ class Bootstrapper{
         return this.server;
     }
 
-    loadConfigurationFile(){
+    loadConfigurationFile(configurationOverrides){
         const configurationLoader = new ConfigurationLoader();
         const configFilePath = path.join(__dirname, '../configuration.json');
 
-        this.configuration = configurationLoader.load(configFilePath);
+        this.configuration = configurationLoader.load(configFilePath, configurationOverrides);
     }
 
     async runMigrations(){

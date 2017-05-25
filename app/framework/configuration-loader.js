@@ -1,9 +1,23 @@
 const fs = require('fs');
 
 class ConfigurationLoader{
-    load(configurationFilePath){
+    load(configurationFilePath, configurationOverrides){
         const fileContent = fs.readFileSync(configurationFilePath);
-        return JSON.parse(fileContent);
+        const configuration = JSON.parse(fileContent);
+
+        if(configurationOverrides !== undefined){
+            this.applyConfigurationOverrides(configuration, configurationOverrides);
+        }
+        return configuration;
+    }
+
+    applyConfigurationOverrides(configuration, configurationOverrides) {
+        if(configurationOverrides === null) return;
+
+        Object.keys(configurationOverrides)
+            .forEach((key) => {
+                configuration[key] = configurationOverrides[key];
+            });
     }
 }
 

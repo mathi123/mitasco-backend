@@ -16,7 +16,7 @@ describe('GET /api/context', () => {
             next();
         });
 
-        server = await (new Bootstrapper()).run();
+        server = await (new Bootstrapper({ runMigrationsOnStartUp: false })).run();
         server.start();
         app = server.getApp();
     });
