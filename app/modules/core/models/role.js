@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             type: DataTypes.STRING,
         },
+        isRemovable: {
+            allowNull: false,
+            type: DataTypes.BOOLEAN,
+        },
     }, {
         tableName: 'Role',
     });

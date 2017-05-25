@@ -1,5 +1,3 @@
-
-
 const uuid = require('uuid/v4');
 
 module.exports = function (sequelize, DataTypes) {
@@ -26,9 +24,9 @@ module.exports = function (sequelize, DataTypes) {
                 const Permission = models['Permission'];
                 const RolePermission = models['RolePermission'];
 
-                Role.hasMany(RolePermission, {foreignKey: 'roleId'});
+                Role.hasMany(RolePermission, { foreignKey: 'roleId' });
 
-                Permission.hasMany(RolePermission, {foreignKey: 'permissionId'});
+                Permission.hasMany(RolePermission, { foreignKey: 'permissionId' });
 
                 RolePermission.belongsTo(Role,
                     {

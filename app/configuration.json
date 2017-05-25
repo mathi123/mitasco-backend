@@ -12,8 +12,6 @@
     "dialect": "postgres"
   },
   "modules": [
-    "core",
-    "sales",
-    "calculation"
+    "core"
   ]
 }

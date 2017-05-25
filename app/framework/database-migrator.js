@@ -26,6 +26,7 @@ class DatabaseMigrator{
                 params: [this.sequelize.getQueryInterface(), // queryInterface
                     this.sequelize.constructor],
                 path: migrationsPath,
+                pattern: /\.js$/,
             },
         };
 

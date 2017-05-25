@@ -11,23 +11,14 @@ module.exports = function (sequelize, DataTypes) {
         code: {
             allowNull: false,
             unique: true,
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(64),
         },
         description: {
             allowNull: false,
-            type: DataTypes.STRING,
-        },
-        isRemovable: {
-            allowNull: false,
-            type: DataTypes.BOOLEAN,
+            type: DataTypes.STRING(512),
         },
     }, {
         tableName: 'Permission',
-        classMethods: {
-            associate (models) {
-                // associations can be defined here
-            },
-        },
     });
 
     Permission.addHook('beforeCreate', async permission => {

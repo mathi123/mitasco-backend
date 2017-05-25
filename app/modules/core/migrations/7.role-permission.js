@@ -1,7 +1,7 @@
 
 module.exports = {
-    up(queryInterface, Sequelize) {
-        return queryInterface.createTable('UserRole', {
+    up (queryInterface, Sequelize) {
+        return queryInterface.createTable('RolePermission', {
             id: {
                 allowNull: false,
                 primaryKey: true,
@@ -17,27 +17,25 @@ module.exports = {
                 onDelete: 'CASCADE',
                 onUpdate: 'CASCADE',
             },
-            userId: {
+            permissionId: {
                 allowNull: false,
                 type: Sequelize.UUID,
                 references: {
-                    model: 'Users',
+                    model: 'Permission',
                     key: 'id',
                 },
                 onDelete: 'CASCADE',
                 onUpdate: 'CASCADE',
             },
-            createdAt: {
-                allowNull: false,
-                type: Sequelize.DATE,
-            },
-            updatedAt: {
-                allowNull: false,
-                type: Sequelize.DATE,
+        }, {
+            uniqueKeys: {
+                occurs_once: {
+                    fields: ['roleId', 'permissionId'],
+                },
             },
         });
     },
-    down(queryInterface, Sequelize) {
-        return queryInterface.dropTable('UserRole');
+    down (queryInterface) {
+        return queryInterface.dropTable('RolePermission');
     },
 };

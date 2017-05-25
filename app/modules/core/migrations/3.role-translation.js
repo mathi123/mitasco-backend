@@ -1,15 +1,15 @@
 
 module.exports = {
     up (queryInterface, Sequelize) {
-        return queryInterface.createTable('RolePermission', {
+        return queryInterface.createTable('RoleTranslation', {
             id: {
                 allowNull: false,
                 primaryKey: true,
                 type: Sequelize.UUID,
             },
             roleId: {
-                allowNull: false,
                 type: Sequelize.UUID,
+                allowNull: false,
                 references: {
                     model: 'Role',
                     key: 'id',
@@ -17,27 +17,29 @@ module.exports = {
                 onDelete: 'CASCADE',
                 onUpdate: 'CASCADE',
             },
-            permissionId: {
-                allowNull: false,
+            languageId: {
                 type: Sequelize.UUID,
+                allowNull: false,
                 references: {
-                    model: 'Permission',
+                    model: 'Language',
                     key: 'id',
                 },
                 onDelete: 'CASCADE',
                 onUpdate: 'CASCADE',
             },
-            createdAt: {
+            description: {
+                type: Sequelize.STRING(512),
                 allowNull: false,
-                type: Sequelize.DATE,
             },
-            updatedAt: {
-                allowNull: false,
-                type: Sequelize.DATE,
+        }, {
+            uniqueKeys: {
+                unique_translation: {
+                    fields: ['roleId', 'languageId'],
+                },
             },
         });
     },
-    down (queryInterface, Sequelize) {
-        return queryInterface.dropTable('RolePermission');
+    down (queryInterface) {
+        return queryInterface.dropTable('RoleTranslation');
     },
 };

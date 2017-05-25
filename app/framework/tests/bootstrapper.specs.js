@@ -34,14 +34,14 @@ describe('Bootstrapper', () => {
         expect(fs.existsSync(configFilePath)).to.be.true;
     });
 
-    it('initializes the orm with orm part of config file', () => {
+    it('initializes the orm with orm part of config file', async () => {
         // Arrange
         const ormInitStub = sinon.stub(OrmInitializer.prototype, 'initialize');
         stubs.push(ormInitStub);
 
         // Act
         try{
-            bootstrapper.run();
+            await bootstrapper.run();
         }catch(err){
 
         }
@@ -51,7 +51,7 @@ describe('Bootstrapper', () => {
         expect(ormInitStub.firstCall.args[0]).to.equal(ormConfig);
     });
 
-    it('builds a server instance', () => {
+    it('builds a server instance', async () => {
         // Arrange
         const serverStartStub = sinon.stub(Server.prototype, 'build');
         stubs.push(serverStartStub);
@@ -59,7 +59,7 @@ describe('Bootstrapper', () => {
         stubs.push(sinon.stub(OrmInitializer.prototype, 'loadModule'));
 
         // Act
-        bootstrapper.run();
+        await bootstrapper.run();
 
         // Assert
         expect(serverStartStub.calledOnce).to.be.true;

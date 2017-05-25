@@ -9,27 +9,16 @@ module.exports = {
             },
             code: {
                 allowNull: false,
-                type: Sequelize.STRING,
+                type: Sequelize.STRING(64),
+                unique: true,
             },
             description: {
                 allowNull: false,
-                type: Sequelize.STRING,
-            },
-            isRemovable: {
-                allowNull: false,
-                type: Sequelize.BOOLEAN,
-            },
-            createdAt: {
-                allowNull: false,
-                type: Sequelize.DATE,
-            },
-            updatedAt: {
-                allowNull: false,
-                type: Sequelize.DATE,
+                type: Sequelize.STRING(512),
             },
         });
     },
-    down (queryInterface, Sequelize) {
+    down (queryInterface) {
         return queryInterface.dropTable('Permission');
     },
 };

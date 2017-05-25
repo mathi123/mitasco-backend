@@ -8,24 +8,21 @@ module.exports = {
                 type: Sequelize.UUID,
             },
             code: {
-                type: Sequelize.STRING,
+                type: Sequelize.STRING(16),
                 allowNull: false,
+                unique: true,
             },
             description: {
-                type: Sequelize.STRING,
+                type: Sequelize.STRING(512),
                 allowNull: false,
             },
-            createdAt: {
+            isRemovable: {
                 allowNull: false,
-                type: Sequelize.DATE,
-            },
-            updatedAt: {
-                allowNull: false,
-                type: Sequelize.DATE,
+                type: Sequelize.BOOLEAN,
             },
         });
     },
-    down (queryInterface, Sequelize) {
+    down (queryInterface) {
         return queryInterface.dropTable('Role');
     },
 };

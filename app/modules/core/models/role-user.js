@@ -1,6 +1,6 @@
 
 module.exports = function (sequelize, DataTypes) {
-    const UserRole = sequelize.define('UserRole', {
+    const RoleUser = sequelize.define('RoleUser', {
         id: {
             type: DataTypes.UUID,
             primaryKey: true,
@@ -15,19 +15,27 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.UUID,
             allowNull: false,
         },
+        createdAt: {
+            allowNull: false,
+            type: DataTypes.DATE,
+        },
+        updatedAt: {
+            allowNull: false,
+            type: DataTypes.DATE,
+        },
     }, {
-        tableName: 'UserRole',
+        tableName: 'RoleUser',
         classMethods: {
             associate (models) {
                 const Role = models['Role'];
                 const User = models['User'];
-                const UserRole = models['UserRole'];
+                const RoleUser = models['RoleUser'];
 
-                Role.hasMany(UserRole, { foreignKey: 'roleId' });
+                Role.hasMany(RoleUser, { foreignKey: 'roleId' });
 
-                User.hasMany(UserRole, { foreignKey: 'userId' });
+                User.hasMany(RoleUser, { foreignKey: 'userId' });
 
-                UserRole.belongsTo(Role,
+                RoleUser.belongsTo(Role,
                     {
                         foreignKey: {
                             name: 'roleId',
@@ -36,7 +44,7 @@ module.exports = function (sequelize, DataTypes) {
                         },
                     });
 
-                UserRole.belongsTo(User,
+                RoleUser.belongsTo(User,
                     {
                         foreignKey: {
                             name: 'userId',
@@ -47,5 +55,5 @@ module.exports = function (sequelize, DataTypes) {
             },
         },
     });
-    return UserRole;
+    return RoleUser;
 };

@@ -11,10 +11,10 @@ class Bootstrapper{
         this.ormInitializer = new OrmInitializer();
     }
 
-    run(){
+    async run(){
         this.loadConfigurationFile();
         this.initializeOrm();
-        this.runMigrations();
+        await this.runMigrations();
         this.loadModules();
         this.createServer();
         this.buildRoutes();
@@ -29,10 +29,13 @@ class Bootstrapper{
         this.configuration = configurationLoader.load(configFilePath);
     }
 
-    runMigrations(){
-        if(this.configuration.runMigrationsOnStartUp){
+    async runMigrations(){
+        if(this.configuration.runMigrationsOnStartUp) {
             this.migrationRunner = new DatabaseMigrator(this.configuration.orm, this.ormInitializer.sequelize);
-            this.configuration.modules.forEach(async (module) => await this.migrationRunner.executeModuleMigrations(module));
+
+            for (let module of this.configuration.modules) {
+                await this.migrationRunner.executeModuleMigrations(module);
+            }
         }
     }
 

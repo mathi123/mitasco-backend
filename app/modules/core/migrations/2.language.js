@@ -9,23 +9,16 @@ module.exports = {
             },
             code: {
                 allowNull: false,
-                type: Sequelize.STRING,
+                type: Sequelize.STRING(2),
+                unique: true,
             },
             description: {
                 allowNull: false,
                 type: Sequelize.STRING,
             },
-            createdAt: {
-                allowNull: false,
-                type: Sequelize.DATE,
-            },
-            updatedAt: {
-                allowNull: false,
-                type: Sequelize.DATE,
-            },
         });
     },
-    down (queryInterface, Sequelize) {
+    down (queryInterface) {
         return queryInterface.dropTable('Language');
     },
 };
