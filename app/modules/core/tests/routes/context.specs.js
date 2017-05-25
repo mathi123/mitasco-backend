@@ -11,7 +11,7 @@ describe('GET /api/context', () => {
 
     beforeEach('setup app', async () => {
         authStub = sinon.stub(AuthenticationController.prototype, 'checkAuthenticationToken');
-        authStub.callsFake((req, res, next) => {
+        authStub.callsFake(async (req, res, next) => {
             req.userId = 1;
             next();
         });
