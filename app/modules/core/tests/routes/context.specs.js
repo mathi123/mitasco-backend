@@ -3,19 +3,20 @@ const ContextController = require('../../controllers/context-controller');
 const AuthenticationController = require('../../controllers/authentication-controller');
 const expect = require('chai').expect;
 const Server = require('../../../../framework/server');
+const Bootstrapper = require('../../../../framework/bootstrapper');
 const sinon = require('sinon');
 
 describe('GET /api/context', () => {
     let app, server, spy, authStub;
 
-    beforeEach('setup app', () => {
+    beforeEach('setup app', async () => {
         authStub = sinon.stub(AuthenticationController.prototype, 'checkAuthenticationToken');
         authStub.callsFake((req, res, next) => {
             req.userId = 1;
             next();
         });
 
-        server = new Server({port:3123});
+        server = await (new Bootstrapper()).run();
         server.start();
         app = server.getApp();
     });
@@ -24,7 +25,7 @@ describe('GET /api/context', () => {
         it('calls context controllers getRoles', async () => {
             spy = sinon.spy(ContextController.prototype, 'getRoles');
 
-            await request(app)
+            let result = await request(app)
                 .get('/api/context/role')
                 .send();
 

@@ -16,15 +16,16 @@ describe('Bootstrapper', () => {
     beforeEach('setup', () => {
         // Arrange
         bootstrapper = new Bootstrapper();
-
-        configurationLoadStub = sinon.stub(ConfigurationLoader.prototype, 'load');
-        configurationLoadStub.returns({ configKey: 'test', orm: ormConfig , modules: [ 'core' ] });
     });
 
-    it('loads the configuration file', () => {
+    it('loads the configuration file', async () => {
+        // Assert
+        configurationLoadStub = sinon.stub(ConfigurationLoader.prototype, 'load');
+        configurationLoadStub.returns({ configKey: 'test', orm: ormConfig , modules: [ 'core' ] });
+
         // Act
         try{
-            bootstrapper.run();
+            await bootstrapper.run();
         }catch(err){}
 
         // Assert
@@ -34,39 +35,18 @@ describe('Bootstrapper', () => {
         expect(fs.existsSync(configFilePath)).to.be.true;
     });
 
-    it('initializes the orm with orm part of config file', async () => {
-        // Arrange
-        const ormInitStub = sinon.stub(OrmInitializer.prototype, 'initialize');
-        stubs.push(ormInitStub);
-
-        // Act
-        try{
-            await bootstrapper.run();
-        }catch(err){
-
-        }
-
-        // Assert
-        expect(ormInitStub.calledOnce).to.be.true;
-        expect(ormInitStub.firstCall.args[0]).to.equal(ormConfig);
-    });
-
     it('builds a server instance', async () => {
-        // Arrange
-        const serverStartStub = sinon.stub(Server.prototype, 'build');
-        stubs.push(serverStartStub);
-        stubs.push(sinon.stub(OrmInitializer.prototype, 'initialize'));
-        stubs.push(sinon.stub(OrmInitializer.prototype, 'loadModule'));
-
         // Act
-        await bootstrapper.run();
+        let server = await bootstrapper.run();
 
         // Assert
-        expect(serverStartStub.calledOnce).to.be.true;
+        expect(server).to.be.instanceOf(Server);
     });
 
     afterEach('clean up', () => {
-        configurationLoadStub.restore();
+        if(configurationLoadStub !== undefined) {
+            configurationLoadStub.restore();
+        }
         stubs.forEach((stub) => stub.restore());
     });
 });

@@ -13,16 +13,11 @@ class Server{
         this.debug = configuration.debug || false;
     }
 
-    start(){
-        this.build();
-        this.run();
-    }
-
     stop(){
         this.server.close();
     }
 
-    run(){
+    start(){
         this.server = this.app.listen(this.port, () => {
             if(this.debug){
                 console.info('listening on port ' + this.port);

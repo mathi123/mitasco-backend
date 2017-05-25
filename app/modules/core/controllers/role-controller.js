@@ -9,6 +9,7 @@ class RoleController {
     buildRoutes(app){
         app.get(`/${this.routePrefix}/role/:id`, (req, res, next) => this.getRoleById.catch(next));
     }
+
     async getRoleById(req, res) {
         const id = req.params.id;
 

@@ -49,7 +49,6 @@ class Bootstrapper{
     }
 
     loadModule(module) {
-        // Load ORM models
         this.ormInitializer.loadModule(module);
     }
 

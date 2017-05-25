@@ -1,5 +1,6 @@
 const request = require('supertest');
 const AuthenticationController = require('../../controllers/authentication-controller');
+const Bootstrapper = require('../../../../framework/bootstrapper');
 const expect = require('chai').expect;
 const Server = require('../../../../framework/server');
 const sinon = require('sinon');
@@ -11,8 +12,8 @@ describe('POST /api/token', () => {
     };
     let app, server, authenticateSpy;
 
-    beforeEach('setup app', () => {
-        server = new Server({port:3123});
+    beforeEach('setup app', async () => {
+        server = await new Bootstrapper().run();
         server.start();
         app = server.getApp();
     });

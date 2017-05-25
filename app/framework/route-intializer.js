@@ -13,19 +13,21 @@ class RouteInitializer{
 
         fs.readdirSync(controllersDirPath)
             .filter((file) => this.fileFilter(controllersDirPath, file))
-            .forEach((file) => this.buildRoutes(moduleName, controllersDirPath, file));
+            .forEach((file) => this.buildRoutes(controllersDirPath, file));
     }
 
     fileFilter(basename, file) {
-        return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-15) === '-controller.js');
+        return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-14) === '-controller.js');
     }
 
-    buildRoutes(moduleName, controllersDirPath, file) {
+    buildRoutes(controllersDirPath, file) {
         const routeBuilderPath = path.join(controllersDirPath, file);
         const RouteBuilder = require(routeBuilderPath);
 
         const controller = new RouteBuilder(this.routePrefix);
         controller.buildRoutes(this.application);
+
+        return controller;
     }
 }
 
