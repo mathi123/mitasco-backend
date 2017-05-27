@@ -1,13 +1,13 @@
 const uuid = require('uuid/v4');
 
 module.exports = (sequelize, DataTypes) => {
-    const RoleTranslation = sequelize.define('RoleTranslation', {
+    const DimensionTranslation = sequelize.define('DimensionTranslation', {
         id: {
             type: DataTypes.UUID,
             primaryKey: true,
             allowNull: false,
         },
-        roleId: {
+        dimensionId: {
             type: DataTypes.UUID,
             allowNull: false,
         },
@@ -16,20 +16,20 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         translation: {
-            type: DataTypes.STRING(512),
+            type: DataTypes.STRING(32),
             allowNull: false,
         },
     }, {
-        tableName: 'RoleTranslation',
+        tableName: 'DimensionTranslation',
         classMethods: {
             associate (models) {
-                const Role = models['Role'];
-                Role.hasMany(RoleTranslation, { foreignKey: 'roleId' });
+                const Dimension = models['Dimension'];
+                Dimension.hasMany(DimensionTranslation, { foreignKey: 'dimensionId' });
 
-                RoleTranslation.belongsTo(Role,
+                DimensionTranslation.belongsTo(Dimension,
                     {
                         foreignKey: {
-                            name: 'roleId',
+                            name: 'dimensionId',
                             allowNull: false,
                             onDelete: 'CASCADE',
                         },
@@ -38,11 +38,11 @@ module.exports = (sequelize, DataTypes) => {
         },
     });
 
-    RoleTranslation.addHook('beforeCreate', async roleTranslation => {
-        if (roleTranslation.id === null) {
-            roleTranslation.id = uuid();
+    DimensionTranslation.addHook('beforeCreate', async dimensionTranslation => {
+        if (dimensionTranslation.id === null) {
+            dimensionTranslation.id = uuid();
         }
     });
 
-    return RoleTranslation;
+    return DimensionTranslation;
 };

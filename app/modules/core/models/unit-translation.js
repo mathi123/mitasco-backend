@@ -1,13 +1,13 @@
 const uuid = require('uuid/v4');
 
 module.exports = (sequelize, DataTypes) => {
-    const RoleTranslation = sequelize.define('RoleTranslation', {
+    const UnitTranslation = sequelize.define('UnitTranslation', {
         id: {
             type: DataTypes.UUID,
             primaryKey: true,
             allowNull: false,
         },
-        roleId: {
+        unitId: {
             type: DataTypes.UUID,
             allowNull: false,
         },
@@ -16,20 +16,20 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         translation: {
-            type: DataTypes.STRING(512),
+            type: DataTypes.STRING(32),
             allowNull: false,
         },
     }, {
-        tableName: 'RoleTranslation',
+        tableName: 'UnitTranslation',
         classMethods: {
             associate (models) {
-                const Role = models['Role'];
-                Role.hasMany(RoleTranslation, { foreignKey: 'roleId' });
+                const Unit = models['Unit'];
+                Unit.hasMany(UnitTranslation, { foreignKey: 'unitId' });
 
-                RoleTranslation.belongsTo(Role,
+                UnitTranslation.belongsTo(Unit,
                     {
                         foreignKey: {
-                            name: 'roleId',
+                            name: 'unitId',
                             allowNull: false,
                             onDelete: 'CASCADE',
                         },
@@ -38,11 +38,11 @@ module.exports = (sequelize, DataTypes) => {
         },
     });
 
-    RoleTranslation.addHook('beforeCreate', async roleTranslation => {
-        if (roleTranslation.id === null) {
-            roleTranslation.id = uuid();
+    UnitTranslation.addHook('beforeCreate', async unitTranslation => {
+        if (unitTranslation.id === null) {
+            unitTranslation.id = uuid();
         }
     });
 
-    return RoleTranslation;
+    return UnitTranslation;
 };

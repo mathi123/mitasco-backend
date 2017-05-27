@@ -42,7 +42,7 @@ describe('RouteInitializer', () => {
            expect(controller.routePrefix).to.equal(routePrefix);
        });
 
-       it('calls buildRoutes on controller instances', () => {
+       it('calls buildFallbackRoute on controller instances', () => {
            // Act
            routeInitializer.buildRoutes(controllerDirPath, 'fake-controller.js');
 

@@ -59,6 +59,7 @@ class OrmInitializer{
 
         Object.keys(this.sequelize.models[moduleName]).forEach((modelName, model) => {
             jsModule[modelName] = model;
+            //console.info(`setting ${modelName} in ${modelsPath} package`);
         });
     }
 

@@ -1,17 +1,17 @@
 
 module.exports = {
     up (queryInterface, Sequelize) {
-        return queryInterface.createTable('RoleTranslation', {
+        return queryInterface.createTable('UnitTranslation', {
             id: {
                 allowNull: false,
                 primaryKey: true,
                 type: Sequelize.UUID,
             },
-            roleId: {
+            unitId: {
                 type: Sequelize.UUID,
                 allowNull: false,
                 references: {
-                    model: 'Role',
+                    model: 'Unit',
                     key: 'id',
                 },
                 onDelete: 'CASCADE',
@@ -27,19 +27,19 @@ module.exports = {
                 onDelete: 'CASCADE',
                 onUpdate: 'CASCADE',
             },
-            description: {
-                type: Sequelize.STRING(512),
+            translation: {
                 allowNull: false,
+                type: Sequelize.STRING(32),
             },
         }, {
             uniqueKeys: {
                 unique_translation: {
-                    fields: ['roleId', 'languageId'],
+                    fields: ['unitId', 'languageId'],
                 },
             },
         });
     },
     down (queryInterface) {
-        return queryInterface.dropTable('RoleTranslation');
+        return queryInterface.dropTable('UnitTranslation');
     },
 };

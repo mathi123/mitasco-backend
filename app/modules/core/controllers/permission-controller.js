@@ -16,7 +16,7 @@ class PermissionController{
     }
 
     async getAllPermission(req, res){
-        const permissionList = await models.Permission.findAll();
+        const permissionList = await models.Permission.all();
         const result = permissionList.map(this.mapToPermissionDto);
 
         res.json(result);

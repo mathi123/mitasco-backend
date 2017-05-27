@@ -16,7 +16,7 @@ class UnitController{
     }
 
     async getAllUnit(req, res){
-        const unitList = await models.Unit.findAll();
+        const unitList = await models.Unit.all();
         const result = unitList.map(this.mapToUnitDto);
 
         res.json(result);

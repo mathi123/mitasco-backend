@@ -1,8 +1,5 @@
 const initializeExpressApplication = require('express');
 const bodyParser = require('body-parser');
-const AuthenticationController = require('./../modules/core/controllers/authentication-controller');
-const ContextController = require('./../modules/core/controllers/context-controller');
-
 const HttpStatus = require('http-status-codes');
 const cors = require('cors');
 
@@ -18,6 +15,8 @@ class Server{
     }
 
     start(){
+        this.buildFallbackRoute();
+
         this.server = this.app.listen(this.port, () => {
             if(this.debug){
                 console.info('listening on port ' + this.port);
@@ -30,16 +29,16 @@ class Server{
 
         this.initializeMiddleWares();
 
-        this.buildRoutes();
+
     }
 
-    buildRoutes(){
+    buildFallbackRoute(){
         this.app.use((err, req, res, next) => this.exceptionHandler(err, req, res));
     }
 
     exceptionHandler(err, req, res) {
         if(this.debug){
-            console.error(err);
+           // console.error(err);
         }
         res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
     }

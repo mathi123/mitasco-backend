@@ -17,8 +17,35 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false,
             type: DataTypes.STRING(32),
         },
+        dimensionId: {
+            type: DataTypes.UUID,
+            allowNull: false,
+        },
+        isBaseUnit: {
+            allowNull: false,
+            type: DataTypes.BOOLEAN,
+        },
+        conversionToBaseUnit: {
+            type: DataTypes.DECIMAL,
+            allowNull: false,
+        },
     }, {
         tableName: 'Unit',
+        classMethods: {
+            associate (models) {
+                const Dimension = models['Dimension'];
+                Dimension.hasMany(Unit, { foreignKey: 'dimensionId' });
+
+                Unit.belongsTo(Dimension,
+                    {
+                        foreignKey: {
+                            name: 'dimensionId',
+                            allowNull: false,
+                            onDelete: 'CASCADE',
+                        },
+                    });
+            },
+        },
     });
 
     Unit.addHook('beforeCreate', async unit => {
