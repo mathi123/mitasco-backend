@@ -15,14 +15,14 @@ class AuthenticationController{
     }
 
     async checkAuthenticationToken(req, res, next) {
-        if (req.url !== `/${this.routePrefix}/token`) {
+        if (req.url !== `/${this.routePrefix}/token/`) {
             const tokenHeader = req.get('authorization');
             if (tokenHeader === null || tokenHeader === undefined) {
                 res.sendStatus(HttpStatus.UNAUTHORIZED);
             } else {
                 const token = tokenHeader.substr(tokenHeader.indexOf(' ') + 1);
 
-                const valid = await this.verifyJwt(token);
+                const valid = await this.verifyToken(token);
 
                 if (valid) {
                     req.userId = this.getUserIdFromToken(token);

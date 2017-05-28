@@ -1,5 +1,6 @@
 const initializeExpressApplication = require('express');
 const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
 const HttpStatus = require('http-status-codes');
 const cors = require('cors');
 
@@ -38,7 +39,7 @@ class Server{
 
     exceptionHandler(err, req, res) {
         if(this.debug){
-           // console.error(err);
+            console.error(err);
         }
         res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -50,6 +51,7 @@ class Server{
     initializeMiddleWares(){
         this.enableCorsMiddleWare();
         this.enableJsonParserMiddleWare();
+        this.enableValidationMiddleware();
     }
 
     enableCorsMiddleWare(){
@@ -59,6 +61,10 @@ class Server{
         };
         const corsMiddleWare = cors(corsOptions);
         this.app.use(corsMiddleWare);
+    }
+
+    enableValidationMiddleware(){
+        this.app.use(expressValidator());
     }
 
     enableJsonParserMiddleWare(){

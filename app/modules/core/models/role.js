@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         tableName: 'Role',
+        timestamps: false,
     });
 
     Role.addHook('beforeCreate', async role => {

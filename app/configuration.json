@@ -1,7 +1,7 @@
 {
   "port": 3000,
   "routePrefix": "api",
-  "debug": false,
+  "debug": true,
   "runMigrationsOnStartUp": true,
   "orm": {
     "username": "mitasco",
@@ -10,7 +10,7 @@
     "host": "localhost",
     "port": 5432,
     "dialect": "postgres",
-    "logging": false
+    "logging": true
   },
   "modules": [
     "core"

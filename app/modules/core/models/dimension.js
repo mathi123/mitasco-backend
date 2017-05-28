@@ -19,6 +19,7 @@ module.exports = function (sequelize, DataTypes) {
         },
     }, {
         tableName: 'Dimension',
+        timestamps: false,
     });
 
     Dimension.addHook('beforeCreate', async dimension => {

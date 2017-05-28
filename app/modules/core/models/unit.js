@@ -31,9 +31,10 @@ module.exports = function (sequelize, DataTypes) {
         },
     }, {
         tableName: 'Unit',
+        timestamps: false,
         classMethods: {
             associate (models) {
-                const Dimension = models['Dimension'];
+                const Dimension = models['core']['Dimension'];
                 Dimension.hasMany(Unit, { foreignKey: 'dimensionId' });
 
                 Unit.belongsTo(Dimension,

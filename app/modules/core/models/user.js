@@ -22,11 +22,8 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false,
         },
     }, {
-        classMethods: {
-            associate (models) {
-                // associations can be defined here
-            },
-        },
+        tableName: 'Users',
+        timestamps: false,
     });
 
     User.addHook('beforeCreate', async user => {

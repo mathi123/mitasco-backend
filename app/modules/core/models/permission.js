@@ -19,6 +19,7 @@ module.exports = function (sequelize, DataTypes) {
         },
     }, {
         tableName: 'Permission',
+        timestamps: false,
     });
 
     Permission.addHook('beforeCreate', async permission => {

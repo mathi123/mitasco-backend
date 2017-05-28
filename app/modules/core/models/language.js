@@ -18,6 +18,7 @@ module.exports = function (sequelize, DataTypes) {
         },
     }, {
         tableName: 'Language',
+        timestamps: false,
     });
 
     Language.addHook('beforeCreate', async language => {

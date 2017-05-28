@@ -21,9 +21,10 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         tableName: 'UnitTranslation',
+        timestamps: false,
         classMethods: {
             associate (models) {
-                const Unit = models['Unit'];
+                const Unit = models['core']['Unit'];
                 Unit.hasMany(UnitTranslation, { foreignKey: 'unitId' });
 
                 UnitTranslation.belongsTo(Unit,

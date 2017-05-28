@@ -21,15 +21,28 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         tableName: 'DimensionTranslation',
+        timestamps: false,
         classMethods: {
             associate (models) {
-                const Dimension = models['Dimension'];
+                const Dimension = models['core']['Dimension'];
+                const Language = models['core']['Language'];
+
                 Dimension.hasMany(DimensionTranslation, { foreignKey: 'dimensionId' });
+                Language.hasMany(DimensionTranslation, { foreignKey: 'languageId' });
 
                 DimensionTranslation.belongsTo(Dimension,
                     {
                         foreignKey: {
                             name: 'dimensionId',
+                            allowNull: false,
+                            onDelete: 'CASCADE',
+                        },
+                    });
+
+                DimensionTranslation.belongsTo(Language,
+                    {
+                        foreignKey: {
+                            name: 'languageId',
                             allowNull: false,
                             onDelete: 'CASCADE',
                         },

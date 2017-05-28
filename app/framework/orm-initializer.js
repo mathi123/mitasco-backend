@@ -46,7 +46,8 @@ class OrmInitializer{
     }
 
     createModelAssociations(moduleName){
-        Object.keys(this.sequelize.models[moduleName]).forEach((modelName, model) => {
+        Object.keys(this.sequelize.models[moduleName]).forEach((modelName) => {
+            const model = this.sequelize.models[moduleName][modelName];
             if (model.associate) {
                 model.associate(this.sequelize.models);
             }
@@ -57,8 +58,8 @@ class OrmInitializer{
         const modelsPath = path.join(__dirname, '../modules', moduleName, 'models');
         const jsModule =  require(modelsPath);
 
-        Object.keys(this.sequelize.models[moduleName]).forEach((modelName, model) => {
-            jsModule[modelName] = model;
+        Object.keys(this.sequelize.models[moduleName]).forEach((modelName) => {
+            jsModule[modelName] = this.sequelize.models[moduleName][modelName];
             //console.info(`setting ${modelName} in ${modelsPath} package`);
         });
     }

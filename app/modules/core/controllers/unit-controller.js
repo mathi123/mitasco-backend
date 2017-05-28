@@ -35,19 +35,17 @@ class UnitController{
     }
 
     async createUnit(req, res){
-        if (req.body.code === null || req.body.code === undefined) {
-            throw new Error('code missing');
-        }
-
-        if (req.body.description === null || req.body.description === undefined) {
-            throw new Error('description missing');
-        }
+        req.checkBody('code', 'Invalid code').notEmpty();
+        req.checkBody('description', 'Invalid description').notEmpty();
+        req.checkBody('isBaseUnit', 'Invalid isBaseUnit').notEmpty().isBoolean();
+        req.checkBody('conversionToBaseUnit', 'Invalid conversionToBaseUnit').notEmpty().isNumeric();
 
         const data = {
             id: uuid(),
             code: req.body.code,
             description: req.body.description,
-            // TODO add more fields
+            isBaseUnit: req.body.isBaseUnit,
+            conversionToBaseUnit: req.body.conversionToBaseUnit,
         };
 
         await models.Unit.create(data);
@@ -57,29 +55,29 @@ class UnitController{
     }
 
     async updateUnit(req, res){
-        // TODO add extra validation
-        if (req.body.description === null || req.body.description === undefined) {
-            throw new Error('description missing');
-        }
-
-        if (req.params.id === null || req.params.id === undefined) {
-            throw new Error('id missing');
-        }
+        req.checkParams('id', 'Inalid id').notEmpty().isUUID();
+        req.checkBody('code', 'Invalid code').notEmpty();
+        req.checkBody('description', 'Invalid description').notEmpty();
+        req.checkBody('isBaseUnit', 'Invalid isBaseUnit').notEmpty().isBoolean();
+        req.checkBody('conversionToBaseUnit', 'Invalid conversionToBaseUnit').notEmpty().isNumeric();
 
         const id = req.params.id;
-        const unit = await models.Unit.findOne({ where: { id } });
+        const unit = await models.Unit.findById(id);
 
         if (unit === null) {
             res.sendStatus(HttpStatus.NOT_FOUND);
         } else {
             const data = {
+                code: req.body.code,
                 description: req.body.description,
+                isBaseUnit: req.body.isBaseUnit,
+                conversionToBaseUnit: req.body.conversionToBaseUnit,
             };
 
             await models.Unit.update(data, {
                 where: {
                     id,
-                }, fields: ['description'], // Todo check fields to update
+                }, fields: ['description', 'isBaseUnit', 'conversionToBaseUnit', 'code'],
             });
 
             res.location(`/${this.routePrefix}/unit/${id}`);
@@ -88,9 +86,10 @@ class UnitController{
     }
 
     async deleteUnit(req, res){
+        req.checkParams('id', 'Inalid id').notEmpty().isUUID();
         const id = req.params.id;
 
-        const unit = models.Unit.findOne({ where: { id } });
+        const unit = models.Unit.findById(id);
 
         if (unit !== null) {
             await models.Unit.destroy({ where: { id } });
@@ -104,8 +103,9 @@ class UnitController{
 
         result.id = unit.id;
         result.code = unit.code;
-
-        // TODO add more relevant fields
+        result.description = unit.description;
+        result.isBaseUnit = unit.isBaseUnit;
+        result.conversionToBaseUnit = unit.conversionToBaseUnit;
 
         result._links = {
             self: `/${this.routePrefix}/unit/${ result.id }`,

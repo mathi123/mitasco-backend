@@ -19,17 +19,9 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.STRING,
             },
-            createdAt: {
-                allowNull: false,
-                type: Sequelize.DATE,
-            },
-            updatedAt: {
-                allowNull: false,
-                type: Sequelize.DATE,
-            },
         });
     },
-    down (queryInterface, Sequelize) {
+    down (queryInterface) {
         return queryInterface.dropTable('Users');
     },
 };

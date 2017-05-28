@@ -21,9 +21,10 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         tableName: 'RoleTranslation',
+        timestamps: false,
         classMethods: {
             associate (models) {
-                const Role = models['Role'];
+                const Role = models['core']['Role'];
                 Role.hasMany(RoleTranslation, { foreignKey: 'roleId' });
 
                 RoleTranslation.belongsTo(Role,

@@ -18,11 +18,12 @@ module.exports = function (sequelize, DataTypes) {
         },
     }, {
         tableName: 'RolePermission',
+        timestamps: false,
         classMethods: {
             associate (models) {
-                const Role = models['Role'];
-                const Permission = models['Permission'];
-                const RolePermission = models['RolePermission'];
+                const Role = models['core']['Role'];
+                const Permission = models['core']['Permission'];
+                const RolePermission = models['core']['RolePermission'];
 
                 Role.hasMany(RolePermission, { foreignKey: 'roleId' });
 

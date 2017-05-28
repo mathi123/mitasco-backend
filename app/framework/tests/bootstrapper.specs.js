@@ -37,7 +37,7 @@ describe('Bootstrapper', () => {
 
     it('builds a server instance', async () => {
         // Act
-        let server = await bootstrapper.run();
+        let server = await bootstrapper.run({ runMigrationsOnStartUp: false });
 
         // Assert
         expect(server).to.be.instanceOf(Server);
