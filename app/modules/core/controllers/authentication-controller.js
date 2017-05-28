@@ -15,7 +15,7 @@ class AuthenticationController{
     }
 
     async checkAuthenticationToken(req, res, next) {
-        if (req.url !== `/${this.routePrefix}/token/`) {
+        if (this.trimRoute(req.url) !== `/${this.routePrefix}/token`) {
             const tokenHeader = req.get('authorization');
             if (tokenHeader === null || tokenHeader === undefined) {
                 res.sendStatus(HttpStatus.UNAUTHORIZED);
@@ -85,6 +85,17 @@ class AuthenticationController{
 
     getUserIdFromToken(token) {
         return jwt.decode(token, secretKey).sub;
+    }
+
+    trimRoute(route){
+        return this.trimEnd(route, '/');
+    }
+
+    trimEnd(text, character) {
+        while (text.endsWith(character)) {
+            text = text.slice(0, -1);
+        }
+        return text;
     }
 }
 
